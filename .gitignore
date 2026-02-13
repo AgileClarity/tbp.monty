@@ -144,3 +144,9 @@ Session.vim
 
 # hydra
 outputs/
+
+# monty data
+data/
+
+# monty results
+results/
