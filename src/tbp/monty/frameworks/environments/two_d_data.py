@@ -275,6 +275,9 @@ class SaccadeOnImageEnvironment(SimulatedEnvironment):
             patch_size: height and width of patch in pixels, defaults to 64
             data_path: path to the image dataset. If None, defaults to
                 ~/tbp/data/worldimages/labeled_scenes/
+
+        Raises:
+            FileNotFoundError: If the Monty-Meets-World dataset is not found.
         """
         self.patch_size = patch_size
         # Images are always presented upright so patch and agent rotation is always
@@ -283,6 +286,11 @@ class SaccadeOnImageEnvironment(SimulatedEnvironment):
         self.state = 0
         self.data_path = monty_data_path(data_path, "worldimages/labeled_scenes")
         self.scene_names = [a.name for a in sorted(self.data_path.glob("[!.]*"))]
+
+        if(len(self.scene_names) == 0):
+            doc_url = "https://thousandbrainsproject.readme.io/docs/getting-started-on-windows-via-wsl#5-download-monty-datasets"
+            raise FileNotFoundError(f"Is data in {self.data_path}? See {doc_url}")
+
         self.current_scene = self.scene_names[0]
         self.scene_version = 0
 
