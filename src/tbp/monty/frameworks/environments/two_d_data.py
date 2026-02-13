@@ -55,6 +55,9 @@ class OmniglotEnvironment(SimulatedEnvironment):
             patch_size: height and width of patch in pixels, defaults to 10
             data_path: path to the omniglot dataset. If None, defaults to
                 ~/tbp/data/omniglot/python/
+
+        Raises:
+            FileNotFoundError: If the Omniglot dataset is not found at expected path.
         """
         self.patch_size = patch_size
         # Letters are always presented upright
@@ -64,6 +67,10 @@ class OmniglotEnvironment(SimulatedEnvironment):
         self.data_path = monty_data_path(data_path, "omniglot/python")
         alphabet_path = self.data_path / "images_background"
         self.alphabet_names = [a.name for a in sorted(alphabet_path.glob("[!.]*"))]
+
+        if(len(self.alphabet_names) == 0):
+            doc_url = "https://thousandbrainsproject.readme.io/docs/getting-started-on-windows-via-wsl#5-download-monty-datasets"
+            raise FileNotFoundError(f"Omniglot data in {alphabet_path}? See {doc_url}")
         self.current_alphabet = self.alphabet_names[0]
         self.character_id = 1
         self.character_version = 1
