@@ -70,7 +70,7 @@ class OmniglotEnvironment(SimulatedEnvironment):
 
         if(len(self.alphabet_names) == 0):
             doc_url = "https://thousandbrainsproject.readme.io/docs/getting-started-on-windows-via-wsl#5-download-monty-datasets"
-            raise FileNotFoundError(f"Omniglot data in {alphabet_path}? See {doc_url}")
+            raise FileNotFoundError(f"Omniglot data in {self.data_path}? See {doc_url}")
 
         self.current_alphabet = self.alphabet_names[0]
         self.character_id = 1
